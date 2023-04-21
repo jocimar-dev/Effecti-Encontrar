@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <title>ComprasNet</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>ComprasNet</h1>
+<p><img src="#" th:src="@{/logo.png}" alt="Logo"/></p>
+<table>
+    <thead>
+    <tr>
+        <th>Empresa</th>
+        <th>Concorr&ecirc;ncia</th>
+        <th>Objeto</th>
+        <th>In&iacute;cio do Edital</th>
+        <th>Endere&ccedil;o</th>
+        <th>Telefone</th>
+        <th>Fax</th>
+        <th>Entrega da Proposta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${dataList}">
+        <td th:text="${data.empresa}"></td>
+        <td th:text="${data.concorrencia}"></td>
+        <td th:text="${data.objeto}"></td>
+        <td th:text="${data.editalAPartirDe}"></td>
+        <td th:text="${data.endereco}"></td>
+        <td th:text="${data.telefone}"></td>
+        <td th:text="${data.fax}"></td>
+        <td th:text="${data.entregaDaProposta}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
