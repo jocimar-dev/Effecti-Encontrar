@@ -24,23 +24,24 @@ public class ComprasNetDataService {
 
         for (var table : tables) {
             comprasNetDataList.add(buscaDadosSite(table));
+            comprasNetDataList.add(buscaDadosSite(tables.get(0)));
         }
         return comprasNetDataList;
     }
 
     private ComprasNetData buscaDadosSite(Element table) {
-        var row = table.select("tr.tex3").get(0);
+        var conteudo = table.select("tr.tex3").get(0);
 
         var buscaLicitacao = new ComprasNetData();
-        var empresa = row.select("b").get(0).text();
+        var empresa = conteudo.select("b").get(0).text();
 
-        var concorrencia = row.select("b").get(1).text().trim();
-        var objeto = requireNonNull(row.select("b").get(2).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").replace("Objeto: ", "").trim();
-        var editalAPartirDe = requireNonNull(row.select("b").get(3).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
-        var endereco = requireNonNull(row.select("b").get(4).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
-        var telefone = requireNonNull(row.select("b").get(5).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
-        var fax = requireNonNull(row.select("b").get(6).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
-        var entregaDaProposta = requireNonNull(row.select("b").get(7).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
+        var concorrencia = conteudo.select("b").get(1).text().trim();
+        var objeto = requireNonNull(conteudo.select("b").get(2).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").replace("Objeto: ", "").trim();
+        var editalAPartirDe = requireNonNull(conteudo.select("b").get(3).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
+        var endereco = requireNonNull(conteudo.select("b").get(4).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
+        var telefone = requireNonNull(conteudo.select("b").get(5).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
+        var fax = requireNonNull(conteudo.select("b").get(6).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
+        var entregaDaProposta = requireNonNull(conteudo.select("b").get(7).nextSibling()).toString().replaceFirst(NON_BREAKING_SPACE, "").trim();
 
         buscaLicitacao.setEmpresa(empresa);
         buscaLicitacao.setConcorrencia(concorrencia);

@@ -11,22 +11,16 @@ import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
-public class ComprasNetDataController {
+public class ComprasNetDataController extends ComprasNetDataService {
 
     private final ComprasNetDataService service;
 
     @GetMapping("/comprasnet")
-    public String pesquisaEffecti(Model model) {
-        try {
-            var htmlFile = new File("sites/comprasnet_principal.html");
-            var dataList = service.buscaLicitacao(htmlFile);
-            model.addAttribute("dataList", dataList);
-            return "comprasnet";
-        } catch (IOException e) {
-            model.addAttribute("erroRequisicao",
-                    "Erro ao conectar no site: " + e.getMessage());
-            return "error";
-        }
+    public String pesquisaEffecti(Model model) throws IOException {
+        var htmlFile = new File("sites/comprasnet_principal.html");
+        var dataList = service.buscaLicitacao(htmlFile);
+        model.addAttribute("dataList", dataList);
+        return "comprasnet";
     }
 }
 

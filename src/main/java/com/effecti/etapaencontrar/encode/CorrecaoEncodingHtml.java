@@ -15,32 +15,26 @@ public class CorrecaoEncodingHtml {
         for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.getName().endsWith(".html")) {
                 try {
-                    // Abre o arquivo com a codificação correta
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding));
-
-                    // Cria um arquivo temporário para salvar o arquivo corrigido
-                    File tempFile = File.createTempFile(file.getName(), null);
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile), encoding));
-
-                    // Substitui caracteres inválidos pela codificação correta
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        line = line.replace("Ã§", "ç");
-                        line = line.replace("Ã£o", "ão");
-                        line = line.replace("Ãª", "ê");
-                        line = line.replace("Ã¡", "á");
-                        line = line.replace("Ã©", "é");
-                        line = line.replace("Ã³", "ó");
-                        line = line.replace("Ãº", "ú");
-                        writer.write(line);
-                        writer.newLine();
+                    File tempFile;
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))) {
+                        tempFile = File.createTempFile(file.getName(), null);
+                        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile), encoding))) {
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                line = line.replace("Ã§", "ç");
+                                line = line.replace("Ã£o", "ão");
+                                line = line.replace("Ãª", "ê");
+                                line = line.replace("Ã¡", "á");
+                                line = line.replace("Ã©", "é");
+                                line = line.replace("Ã³", "ó");
+                                line = line.replace("Ãº", "ú");
+                                writer.write(line);
+                                writer.newLine();
+                            }
+                            reader.close();
+                            writer.close();
+                        }
                     }
-
-                    // Fecha os arquivos
-                    reader.close();
-                    writer.close();
-
-                    // Substitui o arquivo original pelo arquivo corrigido
                     if (file.delete()) {
                         tempFile.renameTo(file);
                     } else {
