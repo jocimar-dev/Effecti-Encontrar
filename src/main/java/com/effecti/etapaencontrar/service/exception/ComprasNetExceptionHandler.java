@@ -14,10 +14,4 @@ public class ComprasNetExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(PaginaNaoEncontradaException.class)
-    public ResponseEntity<Object> handlePaginaNaoEncontradaException(MensagemLidaException ex) {
-        String errorMessage = "ID não encontrado: " + ex.getMessage();
-        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
-    }
-
 }
