@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Licitação</title>
+</head>
+<body>
+    <h1>Detalhes da Licitação</h1>
+    <p>ID: <span th:text="${detalhe.id}"></span></p>
+    <p>Empresa: <span th:text="${detalhe.empresa}"></span></p>
+    <p>Concorrência: <span th:text="${detalhe.concorrencia}"></span></p>
+    <p>Objeto: <span th:text="${detalhe.objeto}"></span></p>
+    <p>Edital a partir de: <span th:text="${detalhe.editalAPartirDe.substring}"></span></p>
+    <p>Endereco: <span th:text="${detalhe.endereco.substring}"></span></p>
+    <p>Telefone: <span th:text="${detalhe.telefone.substring}"></span></p>
+    <p>Fax: <span th:text="${detalhe.fax.substring}"></span></p>
+    <p>Entrega da proposta: <span th:text="${detalhe.entregaProposta}"></span></p>
+</body>
+</html>

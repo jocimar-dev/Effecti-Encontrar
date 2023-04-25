@@ -14,4 +14,10 @@ public class ComprasNetExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MensagemLidaException.class)
+    public ResponseEntity<Object> handleMensagemLidaException(MensagemLidaException ex) {
+        String errorMessage = "Não foi possível marcar como lida a mensagem: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
 }

@@ -21,6 +21,7 @@
         <th>Telefone</th>
         <th>Fax</th>
         <th>Entrega da Proposta</th>
+        <th>Detalhar</th>
     </tr>
     </thead>
     <tbody>
@@ -29,14 +30,15 @@
             <label>
                 <input type="checkbox" class="lidos" onchange="toggleRowClass(this)" th:value="true">
             </label></td>
-        <td th:text="${data.empresa}"></td>
-        <td th:text="${data.concorrencia}"></td>
-        <td th:text="${data.objeto}"></td>
-        <td th:text="${data.editalAPartirDe}"></td>
-        <td th:text="${data.endereco}"></td>
-        <td th:text="${data.telefone}"></td>
-        <td th:text="${data.fax}"></td>
-        <td th:text="${data.entregaProposta}"></td>
+        <td th:text="${data.empresa.substring(0,10)}"></td>
+        <td th:text="${data.concorrencia.substring(0,10)}"></td>
+        <td th:text="${data.objeto.substring(0,10)}"></td>
+        <td th:text="${data.editalAPartirDe.substring(0,10)}"></td>
+        <td th:text="${data.endereco.substring(0,10)}"></td>
+        <td th:text="${data.telefone.substring(0,10)}"></td>
+        <td th:text="${data.fax.substring(0,10)}"></td>
+        <td th:text="${data.entregaProposta.substring(0,10)}"></td>
+        <td><a th:href="@{/detalhe/{id}(id=${data.id})}">Ver detalhes</a></td>
     </tr>
     </tbody>
 </table>

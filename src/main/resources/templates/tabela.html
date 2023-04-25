@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Empresa</th>
+    <th>Concorrência</th>
+    <th>Objeto</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="item : ${items}">
+    <td th:text="${item.empresa}"></td>
+    <td th:text="${item.concorrencia}"></td>
+    <td th:text="${item.objeto}"></td>
+    <td><a th:href="@{/detalhe/{id}(id=${item.id})}">Ver detalhes</a></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
