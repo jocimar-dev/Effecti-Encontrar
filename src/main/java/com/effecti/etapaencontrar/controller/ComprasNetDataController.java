@@ -1,13 +1,15 @@
 package com.effecti.etapaencontrar.controller;
 
+import com.effecti.etapaencontrar.model.ComprasNetData;
+import com.effecti.etapaencontrar.model.ComprasNetStatusData;
 import com.effecti.etapaencontrar.service.ComprasNetDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,42 +17,38 @@ import java.util.Map;
 public class ComprasNetDataController {
 
     private final ComprasNetDataService service;
-    @GetMapping("/busca")
-    public String pesquisaEffecti(Model model) {
-        var dataList = service.busqueTodasLicitacoes();
 
-        if (dataList.isPresent()) {
-            model.addAttribute("dataList", dataList.get());
-            return "comprasnet";
-        } else {
-            model.addAttribute("erroRequisicao",
-                    "Não foram encontrados dados de licitação.");
-            return "error";
-        }
+    @GetMapping("/listar")
+    public ResponseEntity<List<ComprasNetData>> buscarTodasLicitacoes() {
+        var status = service.buscaTodasLicitacoes();
+
+        return Optional.ofNullable(status)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
+    @GetMapping("/busca-salva")
+    public ResponseEntity<List<ComprasNetData>> buscaSalva() {
+        service.buscaSalva();
+
+        return Optional.ofNullable(service.buscaTodasLicitacoes())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}/lida")
-    public ResponseEntity<Void> atualizarStatusLida(@PathVariable Long id, @RequestBody Map<String, Boolean> body) {
-        var lida = body.get("lida");
-        if (lida == null) {
+    public ResponseEntity<Void> atualizarStatusLida(@PathVariable Long id, @RequestParam("lida") ComprasNetStatusData status) {
+        if (Boolean.FALSE.equals(status.getLidas())) {
             return ResponseEntity.badRequest().build();
         }
-        service.mensagensLidas(id, lida);
+        service.mensagensLidas(id, true);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/detalhe/{id}")
-    public String exibirDetalhes(@PathVariable("id") Long id, Model model) {
-         var detalhado = service.busqueLicitacaoPorId(id);
-            if (id != null) {
-                model.addAttribute("detalhe", detalhado);
-            } else {
-                model.addAttribute("erroRequisicao",
-                        "Não foram encontrados dados de licitação.");
-                return "error";
-            }
-
-        return "detalhes"; // retorna o nome da página de detalhes
+    @GetMapping("/index.html")
+    public String paginaInicial() {
+        return "index";
     }
 }
 

@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <title>Detalhes da Licitação</title>
 </head>
-<body>
+    <body>
+    <form method="post" th:action="@{'/' + ${id} + '/lida'}">
+        <label for="lida">Lida:</label>
+        <input type="checkbox" id="lida" name="lida" th:checked="${detalhe.lidas}" th:value="${detalhe.lidas}">
+        <input type="submit" value="Atualizar">
+    </form>
+
     <h1>Detalhes da Licitação</h1>
-    <p>ID: <span th:text="${detalhe.id}"></span></p>
-    <p>Empresa: <span th:text="${detalhe.empresa}"></span></p>
-    <p>Concorrência: <span th:text="${detalhe.concorrencia}"></span></p>
-    <p>Objeto: <span th:text="${detalhe.objeto}"></span></p>
-    <p>Edital a partir de: <span th:text="${detalhe.editalAPartirDe.substring}"></span></p>
-    <p>Endereco: <span th:text="${detalhe.endereco.substring}"></span></p>
-    <p>Telefone: <span th:text="${detalhe.telefone.substring}"></span></p>
-    <p>Fax: <span th:text="${detalhe.fax.substring}"></span></p>
-    <p>Entrega da proposta: <span th:text="${detalhe.entregaProposta}"></span></p>
-</body>
+        <p>ID: <span th:text="${detalhe.id}"></span></p>
+        <p>Empresa: <span th:text="${detalhe.getNumeroPregao}"></span></p>
+        <p>Concorrência: <span th:text="${detalhe.concorrencia}"></span></p>
+        <p>Objeto: <span th:text="${detalhe.objeto}"></span></p>
+        <p>Edital a partir de: <span th:text="${detalhe.editalAPartirDe}"></span></p>
+        <p>Endereco: <span th:text="${detalhe.endereco}"></span></p>
+        <p>Telefone: <span th:text="${detalhe.telefone}"></span></p>
+        <p>Fax: <span th:text="${detalhe.fax}"></span></p>
+        <p>Entrega da proposta: <span th:text="${detalhe.entregaProposta}"></span></p>
+    <a href="index.html">Voltar para tela inicial</a>
+    </body>
 </html>

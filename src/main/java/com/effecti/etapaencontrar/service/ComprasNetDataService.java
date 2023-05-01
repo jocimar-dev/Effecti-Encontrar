@@ -3,12 +3,13 @@ package com.effecti.etapaencontrar.service;
 import com.effecti.etapaencontrar.model.ComprasNetData;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface ComprasNetDataService {
-    Optional<List<ComprasNetData>> busqueTodasLicitacoes();
+@SuppressWarnings("unused")
+public interface ComprasNetDataService  {
 
-    void mensagensLidas(Long id, boolean msgLida);
+   void mensagensLidas(Long id, Boolean status);
+    void buscaSalva();
 
-    ComprasNetData busqueLicitacaoPorId(Long id);
+    List<ComprasNetData> buscaTodasLicitacoes();
 }
+

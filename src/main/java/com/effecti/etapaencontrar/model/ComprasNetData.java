@@ -1,12 +1,7 @@
 package com.effecti.etapaencontrar.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,19 +9,27 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
+@Table(name = "COMPRAS_NET_DATA")
 public class ComprasNetData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String empresa;
+    @Column(columnDefinition = "TEXT")
+    private String numeroPregao;
+    @Column(columnDefinition = "TEXT")
     private String concorrencia;
+    @Column(columnDefinition = "TEXT")
     private String objeto;
     private String editalAPartirDe;
     private String endereco;
     private String telefone;
     private String fax;
     private String entregaProposta;
-    private boolean lidas;
-    private LocalDate dataLeitura;
+
+    @OneToOne(mappedBy = "comprasNetData", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "compras_net_data_status_id")
+    private ComprasNetStatusData status;
+
+
 }
